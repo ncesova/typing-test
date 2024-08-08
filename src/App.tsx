@@ -1,7 +1,6 @@
-import {FC} from 'react';
+import Test from './components/Test';
 
-const App: FC = () => {
-  return <h1>Hello, world!</h1>;
-};
-
+function App() {
+  return <Test />;
+}
 export default App;
