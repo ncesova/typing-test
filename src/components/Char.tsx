@@ -1,4 +1,3 @@
-import {PropsWithRef} from 'react';
 import {CharStyle, CharType} from '../types/CharType';
 
 interface CharProps {

@@ -1,4 +1,3 @@
-import CharTypeArray from '../data/dataProvider';
 import {CharStyle, CharType} from '../types/CharType';
 import Char from './Char';
 
