@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {compareChars, setCurrentChar} from '../utils/charFunctions';
 import {
@@ -18,6 +18,8 @@ function Test() {
     (state) => state.wordsSlice.keypressCount
   );
   const typosCount = useAppSelector((state) => state.wordsSlice.typosCount);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const newWords = setCurrentChar(words, currentIndex);
@@ -48,11 +50,16 @@ function Test() {
     }
   }, [dispach, words]);
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
+
   return (
-    <div className="font-heading bg-bg text-3xl font-medium">
+    <div className="font-heading bg-bg p-4 text-xl font-medium tracking-wide">
       {words.map((item, index) => {
         return <Char key={index} item={item} />;
       })}
+      <input ref={inputRef} style={{width: '5%', opacity: '0%'}} />
     </div>
   );
 }

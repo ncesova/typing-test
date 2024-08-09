@@ -4,17 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        //colors from monkey-type aether theme
-        bg: '#101820',
-        main: '#eedaea',
-        caret: '#eedaea',
-        sub: '#cf6bdd',
-        subAlt: '#292136',
-        text: '#eedaea',
-        error: '#ff5253',
-        errorExtra: '#e3002b',
-        colorfulError: '#ff5253',
-        colorfulErrorExtra: '#e3002b',
+        bg: 'var(--bg-color)',
+        main: 'var(--main-color)',
+        caret: 'var(--caret-color)',
+        sub: 'var(--sub-color)',
+        subAlt: 'var(--sub-alt-color)',
+        text: 'var(--text-color)',
+        error: 'var(--error-color)',
+        errorExtra: 'var(--error-extra-color)',
+        colorfulError: 'var(--colorful-error-color)',
+        colorfulErrorExtra: 'var(--colorful-error-extra-color)',
       },
       fontSize: {
         sm: '0.750rem',
@@ -26,8 +25,8 @@ export default {
         '5xl': '4.210rem',
       },
       fontFamily: {
-        heading: ['Geist', 'monospace'],
-        body: ['Geist', 'monospace'],
+        heading: ['Geist Mono', 'monospace'],
+        body: ['Geist Mono', 'monospace'],
       },
     },
   },
