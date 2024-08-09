@@ -8,26 +8,48 @@ import {
   updateKeypressCount,
 } from '../redux/wordsSlice';
 import Char from './Char';
+import {
+  setAccuracy,
+  setIsFinished,
+  setIsTimer,
+  setSpeed,
+  updateTimerCount,
+} from '../redux/testSlice';
+import {getAccuracy, getSpeed} from '../utils/statsFunctions';
 
 function Test() {
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const words = useAppSelector((state) => state.wordsSlice.words);
   const currentIndex = useAppSelector((state) => state.wordsSlice.currentIndex);
-  //Commented for testing
-  // const keydownCount = useAppSelector(
-  //   (state) => state.wordsSlice.keypressCount
-  // );
   const typosCount = useAppSelector((state) => state.wordsSlice.typosCount);
+  const keypressCount = useAppSelector(
+    (state) => state.wordsSlice.keypressCount
+  );
+  const timerCount = useAppSelector((state) => state.testSlice.timerCount);
+  const isTimer = useAppSelector((state) => state.testSlice.isTimer);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const newWords = setCurrentChar(words, currentIndex);
-    dispach(setWords(newWords));
-  }, [dispach, currentIndex]);
+    dispatch(setWords(newWords));
+  }, [dispatch, currentIndex]);
 
   useEffect(() => {
+    if (isTimer) {
+      const timer = setTimeout(() => {
+        dispatch(updateTimerCount());
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, timerCount, isTimer]);
+
+  useEffect(() => {
+    if (keypressCount === 0) {
+      dispatch(setIsTimer(true));
+    }
+
     if (currentIndex < words.length) {
       function keypressHandler(event: KeyboardEvent) {
         const [newWords, newCurrentIndex, newTyposCount] = compareChars(
@@ -37,10 +59,18 @@ function Test() {
           typosCount
         );
 
-        dispach(setWords(newWords));
-        dispach(setCurrentIndex(newCurrentIndex));
-        dispach(setTyposCount(newTyposCount));
-        dispach(updateKeypressCount());
+        dispatch(setWords(newWords));
+        dispatch(setCurrentIndex(newCurrentIndex));
+        dispatch(setTyposCount(newTyposCount));
+        dispatch(updateKeypressCount());
+
+        if (newCurrentIndex === words.length) {
+          const correctLetters = keypressCount - typosCount;
+          dispatch(setSpeed(getSpeed(correctLetters, timerCount)));
+          dispatch(setAccuracy(getAccuracy(typosCount, keypressCount)));
+          dispatch(setIsTimer(false));
+          dispatch(setIsFinished(true));
+        }
       }
 
       document.addEventListener('keypress', keypressHandler);
@@ -49,7 +79,7 @@ function Test() {
         document.removeEventListener('keypress', keypressHandler);
       };
     }
-  }, [dispach, words]);
+  }, [dispatch, words]);
 
   useEffect(() => {
     inputRef.current?.focus();
