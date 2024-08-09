@@ -1,18 +1,18 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CharType} from '../types/CharType';
-import getCharArray from '../data/dataProvider';
+import {LetterToken} from '../types/LetterToken';
+import getLetterArray from '../data/dataProvider';
 
 type WordsState = {
-  words: CharType[];
+  words: LetterToken[];
   currentIndex: number;
-  keydownCount: number;
+  keypressCount: number;
   typosCount: number;
 };
 
 const initialState: WordsState = {
-  words: getCharArray(),
+  words: getLetterArray(),
   currentIndex: 0,
-  keydownCount: 0,
+  keypressCount: 0,
   typosCount: 0,
 };
 
@@ -20,7 +20,7 @@ const wordsSlice = createSlice({
   name: 'wordsSlice',
   initialState,
   reducers: {
-    setWords(state, action: PayloadAction<CharType[]>) {
+    setWords(state, action: PayloadAction<LetterToken[]>) {
       state.words = action.payload;
     },
     setCurrentIndex(state, action: PayloadAction<number>) {
@@ -29,13 +29,13 @@ const wordsSlice = createSlice({
     setTyposCount(state, action: PayloadAction<number>) {
       state.typosCount = action.payload;
     },
-    updateKeydownCount(state) {
-      state.keydownCount = state.keydownCount + 1;
+    updateKeypressCount(state) {
+      state.keypressCount = state.keypressCount + 1;
     },
     resetWordsSlice(state) {
-      state.words = getCharArray();
+      state.words = getLetterArray();
       state.currentIndex = 0;
-      state.keydownCount = 0;
+      state.keypressCount = 0;
       state.typosCount = 0;
     },
   },
@@ -45,7 +45,7 @@ export const {
   setWords,
   setCurrentIndex,
   setTyposCount,
-  updateKeydownCount,
+  updateKeypressCount,
   resetWordsSlice,
 } = wordsSlice.actions;
 

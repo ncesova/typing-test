@@ -1,13 +1,13 @@
-import {CharStyle, CharType} from '../types/CharType';
+import {CharStyle, LetterToken} from '../types/LetterToken';
 
 interface CharProps {
-  item: CharType;
+  item: LetterToken;
 }
 
 export function Char({item}: CharProps) {
   let className = '';
   if (item.style === CharStyle.Correct) className += 'text-main';
-  else if (item.style === CharStyle.Wrong) className += 'text-error';
+  else if (item.style === CharStyle.Wrong) className += 'text-error border-b-4';
   else if (item.style === CharStyle.Current)
     className += 'text-black bg-gray-200 rounded-sm';
   else className += 'text-sub';

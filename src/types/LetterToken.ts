@@ -5,7 +5,7 @@ export enum CharStyle {
   Current,
 }
 
-export type CharType = {
+export type LetterToken = {
   char: string;
   style: CharStyle;
 };

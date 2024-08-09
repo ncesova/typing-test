@@ -1,10 +1,10 @@
-import {CharStyle, CharType} from '../types/CharType';
+import {CharStyle, LetterToken} from '../types/LetterToken';
 
 export function setCurrentChar(
-  charsArray: CharType[],
+  letters: LetterToken[],
   index: number
-): CharType[] {
-  return charsArray.map((item, itemIndex) => {
+): LetterToken[] {
+  return letters.map((item, itemIndex) => {
     if (itemIndex === index) {
       return {
         ...item,
@@ -17,15 +17,15 @@ export function setCurrentChar(
 }
 
 export function compareChars(
-  chars: CharType[],
+  letters: LetterToken[],
   curIndex: number,
   key: string,
   typosCount: number
-): [result: CharType[], curIndex: number, typosCount: number] {
+): [result: LetterToken[], curIndex: number, typosCount: number] {
   let newIndex = curIndex;
   let newTyposCount = typosCount;
 
-  const result = chars.map((item, index) => {
+  const result = letters.map((item, index) => {
     if (index === curIndex && item.char === key) {
       //Change index and mark char as correct
       newIndex += 1;
