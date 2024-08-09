@@ -14,9 +14,10 @@ function Test() {
 
   const words = useAppSelector((state) => state.wordsSlice.words);
   const currentIndex = useAppSelector((state) => state.wordsSlice.currentIndex);
-  const keydownCount = useAppSelector(
-    (state) => state.wordsSlice.keypressCount
-  );
+  //Commented for testing
+  // const keydownCount = useAppSelector(
+  //   (state) => state.wordsSlice.keypressCount
+  // );
   const typosCount = useAppSelector((state) => state.wordsSlice.typosCount);
 
   const inputRef = useRef<HTMLInputElement>(null);
