@@ -8,7 +8,6 @@ type TestState = {
   isFocused: boolean;
   speed: string;
   accuracy: string;
-  numOfWords: number;
 };
 
 const initialState: TestState = {
@@ -19,7 +18,6 @@ const initialState: TestState = {
   isFocused: false,
   speed: '0.00',
   accuracy: '0.00',
-  numOfWords: 10,
 };
 
 const testSlice = createSlice({
@@ -33,7 +31,13 @@ const testSlice = createSlice({
       state.isFinished = action.payload;
     },
     resetTestState(state) {
-      (state.isStarted = false), (state.isFinished = false);
+      state.isStarted = false;
+      state.isFinished = false;
+      state.isTimer = false;
+      state.timerCount = 0;
+      state.isFocused = false;
+      state.speed = '0.00';
+      state.accuracy = '0.00';
     },
     setIsTimer(state, action: PayloadAction<boolean>) {
       state.isTimer = action.payload;
@@ -53,9 +57,6 @@ const testSlice = createSlice({
     setAccuracy(state, action: PayloadAction<string>) {
       state.accuracy = action.payload;
     },
-    setNumOfWords(state, action: PayloadAction<number>) {
-      state.numOfWords = action.payload;
-    },
   },
 });
 
@@ -69,7 +70,6 @@ export const {
   setIsFocused,
   setSpeed,
   setAccuracy,
-  setNumOfWords,
 } = testSlice.actions;
 
 export default testSlice.reducer;

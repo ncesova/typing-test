@@ -1,12 +1,12 @@
 import {useEffect, useRef} from 'react';
-import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {compareChars, setCurrentChar} from '../utils/charFunctions';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {compareChars, setCurrentChar} from '../../utils/charFunctions';
 import {
   setCurrentIndex,
   setTyposCount,
   setWords,
   updateKeypressCount,
-} from '../redux/wordsSlice';
+} from '../../redux/wordsSlice';
 import Char from './Char';
 import {
   setAccuracy,
@@ -16,8 +16,8 @@ import {
   setIsTimer,
   setSpeed,
   updateTimerCount,
-} from '../redux/testSlice';
-import {getAccuracy, getSpeed} from '../utils/statsFunctions';
+} from '../../redux/testSlice';
+import {getAccuracy, getSpeed} from '../../utils/statsFunctions';
 
 function Test() {
   const dispatch = useAppDispatch();

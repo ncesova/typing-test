@@ -7,6 +7,8 @@ type WordsState = {
   currentIndex: number;
   keypressCount: number;
   typosCount: number;
+  numOfWords: number;
+  language: string;
 };
 
 const initialState: WordsState = {
@@ -14,6 +16,8 @@ const initialState: WordsState = {
   currentIndex: 0,
   keypressCount: 0,
   typosCount: 0,
+  numOfWords: 10,
+  language: 'russian',
 };
 
 const wordsSlice = createSlice({
@@ -32,6 +36,12 @@ const wordsSlice = createSlice({
     updateKeypressCount(state) {
       state.keypressCount = state.keypressCount + 1;
     },
+    setNumOfWords(state, action: PayloadAction<number>) {
+      state.numOfWords = action.payload;
+    },
+    setLanguage(state, action: PayloadAction<string>) {
+      state.language = action.payload;
+    },
     resetWordsSlice(state) {
       state.words = getLetterArray();
       state.currentIndex = 0;
@@ -46,6 +56,8 @@ export const {
   setCurrentIndex,
   setTyposCount,
   updateKeypressCount,
+  setNumOfWords,
+  setLanguage,
   resetWordsSlice,
 } = wordsSlice.actions;
 

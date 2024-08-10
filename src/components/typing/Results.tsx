@@ -1,4 +1,4 @@
-import {useAppSelector} from '../redux/hooks';
+import {useAppSelector} from '../../redux/hooks';
 
 function Results() {
   const speed = useAppSelector((state) => state.testSlice.speed);
