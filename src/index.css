@@ -8,14 +8,14 @@
 }
 
 :root {
-  --bg-color: #e8d5c4;
-  --main-color: #7d67a9;
-  --caret-color: #7d67a9;
-  --sub-color: #3a98b9;
-  --sub-alt-color: #f6e6da;
-  --text-color: #1b4c5e;
-  --error-color: #7d67a9;
-  --error-extra-color: #9f3e6d;
-  --colorful-error-color: #f9f871;
-  --colorful-error-extra-color: #67dfa1;
+  --bg-color: #091f2c;
+  --main-color: #f5b1cc;
+  --caret-color: #a288d9;
+  --sub-color: #93e8d3;
+  --sub-alt-color: #071823;
+  --text-color: #a288d9;
+  --error-color: #e45c96;
+  --error-extra-color: #e45c96;
+  --colorful-error-color: #00b398;
+  --colorful-error-extra-color: #e45c96;
 }

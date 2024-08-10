@@ -10,7 +10,7 @@ function Reset() {
   }
   return (
     <button
-      className="font-body text-text px-4 text-xl font-bold md:self-start"
+      className="font-body text-text bg-subAlt mx-5 rounded-md px-4 text-xl font-bold md:self-start"
       onClick={resetTest}>
       REPEAT
     </button>
