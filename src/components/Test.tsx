@@ -11,6 +11,8 @@ import Char from './Char';
 import {
   setAccuracy,
   setIsFinished,
+  setIsFocused,
+  setIsStarted,
   setIsTimer,
   setSpeed,
   updateTimerCount,
@@ -28,6 +30,7 @@ function Test() {
   );
   const timerCount = useAppSelector((state) => state.testSlice.timerCount);
   const isTimer = useAppSelector((state) => state.testSlice.isTimer);
+  const isFocused = useAppSelector((state) => state.testSlice.isFocused);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +40,7 @@ function Test() {
   }, [dispatch, currentIndex]);
 
   useEffect(() => {
+    console.log(timerCount);
     if (isTimer) {
       const timer = setTimeout(() => {
         dispatch(updateTimerCount());
@@ -46,7 +50,8 @@ function Test() {
   }, [dispatch, timerCount, isTimer]);
 
   useEffect(() => {
-    if (keypressCount === 0) {
+    if (keypressCount !== 0) {
+      dispatch(setIsStarted(true));
       dispatch(setIsTimer(true));
     }
 
@@ -69,6 +74,7 @@ function Test() {
           dispatch(setSpeed(getSpeed(correctLetters, timerCount)));
           dispatch(setAccuracy(getAccuracy(typosCount, keypressCount)));
           dispatch(setIsTimer(false));
+          dispatch(setIsStarted(false));
           dispatch(setIsFinished(true));
         }
       }
@@ -82,15 +88,33 @@ function Test() {
   }, [dispatch, words]);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  });
+    if (isFocused) {
+      inputRef.current?.focus();
+    }
+  }, [isFocused]);
+
+  function clickHandler() {
+    console.log('Focused');
+    dispatch(setIsFocused(true));
+  }
+
+  function blurHandler() {
+    console.log('blurred');
+    dispatch(setIsFocused(false));
+  }
 
   return (
-    <div className="font-heading bg-bg p-4 text-xl font-medium tracking-wide">
+    <div
+      onClick={clickHandler}
+      className="font-heading bg-bg p-4 text-xl font-medium tracking-wide">
       {words.map((item, index) => {
         return <Char key={index} item={item} />;
       })}
-      <input ref={inputRef} style={{width: '5%', opacity: '0%'}} />
+      <input
+        onBlur={blurHandler}
+        ref={inputRef}
+        style={{width: '5%', opacity: '0%'}}
+      />
     </div>
   );
 }
