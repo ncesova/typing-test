@@ -1,8 +1,8 @@
 import russian from './russian.json';
 import {CharStyle, LetterToken} from '../types/LetterToken';
 const randomizedWords = [...russian.words].sort(() => Math.random() - 0.5);
-const tenWords = randomizedWords.slice(0, 10);
-
+//TODO: add variable number of words
+const slicedWords = randomizedWords.slice(0, 15);
 function stringToChar(text: string): LetterToken[] {
   return Array.from(text).map((item) => {
     return {char: item, style: CharStyle.Default} as LetterToken;
@@ -10,6 +10,6 @@ function stringToChar(text: string): LetterToken[] {
 }
 
 const getLetterArray = () => {
-  return stringToChar(tenWords.join(' '));
+  return stringToChar(slicedWords.join(' '));
 };
 export default getLetterArray;
