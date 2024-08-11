@@ -110,11 +110,11 @@ function Test() {
       {isFocused ? (
         <></>
       ) : (
-        <span
+        <div
           onClick={clickHandler}
-          className="absolute inset-x-0 top-10 z-10 text-center font-heading text-2xl text-text">
+          className="absolute inset-x-0 inset-y-0 z-10 grid items-center text-center font-heading text-2xl text-text">
           Click to focus
-        </span>
+        </div>
       )}
       <div
         onClick={clickHandler}
