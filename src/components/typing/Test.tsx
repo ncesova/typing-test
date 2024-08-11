@@ -106,7 +106,7 @@ function Test() {
   return (
     <div
       onClick={clickHandler}
-      className="font-heading bg-bg max-w-prose p-4 text-xl font-medium tracking-wide md:text-2xl">
+      className="max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl">
       {words.map((item, index) => {
         return <Char key={index} item={item} />;
       })}
