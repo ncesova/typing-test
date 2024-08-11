@@ -1,11 +1,11 @@
-import {useAppSelector} from '../../redux/hooks';
+import {useAppSelector} from '../redux/hooks';
 import Results from './Results';
 import Test from './Test';
 
 function TestWrapper() {
   const isFinished = useAppSelector((state) => state.testSlice.isFinished);
   return (
-    <div className="flex md:w-[80%] md:justify-center">
+    <div className="flex w-full md:w-[80%] md:justify-center">
       {isFinished ? (
         <Results />
       ) : (

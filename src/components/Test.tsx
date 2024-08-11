@@ -1,12 +1,12 @@
 import {useEffect, useRef} from 'react';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {compareChars, setCurrentChar} from '../../utils/charFunctions';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {compareChars, setCurrentChar} from '../utils/charFunctions';
 import {
   setCurrentIndex,
   setTyposCount,
   setWords,
   updateKeypressCount,
-} from '../../redux/wordsSlice';
+} from '../redux/wordsSlice';
 import Char from './Char';
 import {
   setAccuracy,
@@ -16,8 +16,8 @@ import {
   setIsTimer,
   setSpeed,
   updateTimerCount,
-} from '../../redux/testSlice';
-import {getAccuracy, getSpeed} from '../../utils/statsFunctions';
+} from '../redux/testSlice';
+import {getAccuracy, getSpeed} from '../utils/statsFunctions';
 
 function Test() {
   const dispatch = useAppDispatch();
@@ -40,7 +40,6 @@ function Test() {
   }, [dispatch, currentIndex]);
 
   useEffect(() => {
-    console.log(timerCount);
     if (isTimer) {
       const timer = setTimeout(() => {
         dispatch(updateTimerCount());
@@ -51,17 +50,17 @@ function Test() {
 
   useEffect(() => {
     if (keypressCount !== 0) {
-      dispatch(setIsStarted(true));
-      dispatch(setIsTimer(true));
+      startTest();
     }
 
     if (currentIndex < words.length) {
-      function keypressHandler(event: Event) {
-        const target = event.target as HTMLInputElement;
+      function inputHandler(event: Event) {
+        const input = event.target as HTMLInputElement;
+
         const [newWords, newCurrentIndex, newTyposCount] = compareChars(
           words,
           currentIndex,
-          target.value.slice(-1),
+          input.value.slice(-1),
           typosCount
         );
 
@@ -71,19 +70,14 @@ function Test() {
         dispatch(updateKeypressCount());
 
         if (newCurrentIndex === words.length) {
-          const correctLetters = keypressCount - typosCount;
-          dispatch(setSpeed(getSpeed(correctLetters, timerCount)));
-          dispatch(setAccuracy(getAccuracy(typosCount, keypressCount)));
-          dispatch(setIsTimer(false));
-          dispatch(setIsStarted(false));
-          dispatch(setIsFinished(true));
+          finishTest();
         }
       }
 
-      inputRef.current?.addEventListener('input', keypressHandler);
+      inputRef.current?.addEventListener('input', inputHandler);
 
       return () => {
-        inputRef.current?.removeEventListener('input', keypressHandler);
+        inputRef.current?.removeEventListener('input', inputHandler);
       };
     }
   }, [dispatch, words]);
@@ -93,6 +87,20 @@ function Test() {
       inputRef.current?.focus();
     }
   }, [isFocused]);
+
+  function startTest() {
+    dispatch(setIsStarted(true));
+    dispatch(setIsTimer(true));
+  }
+
+  function finishTest() {
+    const correctLetters = keypressCount - typosCount;
+    dispatch(setSpeed(getSpeed(correctLetters, timerCount)));
+    dispatch(setAccuracy(getAccuracy(typosCount, keypressCount)));
+    dispatch(setIsTimer(false));
+    dispatch(setIsStarted(false));
+    dispatch(setIsFinished(true));
+  }
 
   function clickHandler() {
     console.log('Focused');
@@ -106,18 +114,16 @@ function Test() {
 
   return (
     <div className="relative">
-      {isFocused ? (
-        <></>
-      ) : (
+      {!isFocused && (
         <div
           onClick={clickHandler}
           className="absolute inset-x-0 inset-y-0 z-10 grid items-center text-center font-heading text-2xl text-text">
-          Click to focus
+          Нажмите, чтобы начать
         </div>
       )}
       <div
         onClick={clickHandler}
-        className={`max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl ${isFocused ? ' ' : 'blur-md'}`}>
+        className={`max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl ${!isFocused && 'blur-md'}`}>
         {words.map((item, index) => {
           return <Char key={index} item={item} />;
         })}

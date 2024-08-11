@@ -1,4 +1,4 @@
-import {CharStyle, LetterToken} from '../../types/LetterToken';
+import {CharStyle, LetterToken} from '../types/LetterToken';
 
 interface CharProps {
   item: LetterToken;

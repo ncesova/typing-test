@@ -1,6 +1,6 @@
-import TestWrapper from './components/typing/TestWrapper';
-import Header from './components/ui/Header';
-import Reset from './components/ui/Reset';
+import TestWrapper from './components/TestWrapper';
+import Header from './components/Header';
+import Reset from './components/Reset';
 
 function App() {
   return (
