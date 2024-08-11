@@ -2,12 +2,11 @@ import {useAppSelector} from '../redux/hooks';
 
 function Results() {
   const speed = useAppSelector((state) => state.testSlice.speed);
+  const mistakes = useAppSelector((state) => state.wordsSlice.typosCount);
   const accuracy = useAppSelector((state) => state.testSlice.accuracy);
 
   let title = 'Average';
   const wpm = +speed;
-
-  console.log(+speed);
 
   if (wpm > 130) {
     title = 'Замечательно';
@@ -49,6 +48,10 @@ function Results() {
       <div>
         <span className={titleClassName}>Скорость:</span>{' '}
         <span className={infoClassName}>{speed} WPM</span>
+      </div>
+      <div>
+        <span className={titleClassName}>Кол-во ошибок:</span>{' '}
+        <span className={infoClassName}>{mistakes}</span>
       </div>
       <div>
         <span className={titleClassName}>Точность:</span>{' '}
