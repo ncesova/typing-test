@@ -58,7 +58,6 @@ function Test() {
     if (currentIndex < words.length) {
       function keypressHandler(event: Event) {
         const target = event.target as HTMLInputElement;
-        console.log(target.value);
         const [newWords, newCurrentIndex, newTyposCount] = compareChars(
           words,
           currentIndex,
