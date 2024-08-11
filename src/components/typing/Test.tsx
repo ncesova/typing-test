@@ -56,11 +56,13 @@ function Test() {
     }
 
     if (currentIndex < words.length) {
-      function keypressHandler(event: KeyboardEvent) {
+      function keypressHandler(event: Event) {
+        const target = event.target as HTMLInputElement;
+        console.log(target.value);
         const [newWords, newCurrentIndex, newTyposCount] = compareChars(
           words,
           currentIndex,
-          event.key,
+          target.value.slice(-1),
           typosCount
         );
 
@@ -79,10 +81,10 @@ function Test() {
         }
       }
 
-      document.addEventListener('keypress', keypressHandler);
+      inputRef.current?.addEventListener('input', keypressHandler);
 
       return () => {
-        document.removeEventListener('keypress', keypressHandler);
+        inputRef.current?.removeEventListener('input', keypressHandler);
       };
     }
   }, [dispatch, words]);
@@ -106,7 +108,7 @@ function Test() {
   return (
     <div
       onClick={clickHandler}
-      className="max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl">
+      className={`max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl ${isFocused ? ' ' : 'blur-md'}`}>
       {words.map((item, index) => {
         return <Char key={index} item={item} />;
       })}
