@@ -106,17 +106,28 @@ function Test() {
   }
 
   return (
-    <div
-      onClick={clickHandler}
-      className={`max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl ${isFocused ? ' ' : 'blur-md'}`}>
-      {words.map((item, index) => {
-        return <Char key={index} item={item} />;
-      })}
-      <input
-        onBlur={blurHandler}
-        ref={inputRef}
-        style={{width: '5%', opacity: '0%'}}
-      />
+    <div className="relative">
+      {isFocused ? (
+        <></>
+      ) : (
+        <span
+          onClick={clickHandler}
+          className="absolute inset-x-0 top-10 z-10 text-center font-heading text-2xl text-text">
+          Click to focus
+        </span>
+      )}
+      <div
+        onClick={clickHandler}
+        className={`max-w-prose bg-bg p-4 font-heading text-xl font-medium tracking-wide md:text-2xl ${isFocused ? ' ' : 'blur-md'}`}>
+        {words.map((item, index) => {
+          return <Char key={index} item={item} />;
+        })}
+        <input
+          onBlur={blurHandler}
+          ref={inputRef}
+          style={{width: '5%', opacity: '0%'}}
+        />
+      </div>
     </div>
   );
 }

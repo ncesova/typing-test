@@ -10,7 +10,6 @@ function TestWrapper() {
         <Results />
       ) : (
         <div className="flex flex-col items-center gap-2 font-heading text-lg text-text">
-          Click to start
           <Test />
         </div>
       )}
