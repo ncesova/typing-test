@@ -8,9 +8,7 @@ function stringToChar(text: string): LetterToken[] {
 }
 
 const getLetterArray = () => {
-  //TODO: add more languages
   const randomizedWords = [...russian.words].sort(() => Math.random() - 0.5);
-  //TODO: add variable number of words
   const slicedWords = randomizedWords.slice(0, 15);
   return stringToChar(slicedWords.join(' '));
 };

@@ -27,14 +27,12 @@ export function compareChars(
 
   const result = letters.map((item, index) => {
     if (index === curIndex && item.char === key) {
-      //Change index and mark char as correct
       newIndex += 1;
       return {
         ...item,
         style: CharStyle.Correct,
       };
     } else if (index === curIndex && item.char !== key) {
-      //increment typos count
       newTyposCount += 1;
       return {
         ...item,
